@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}YouTube MP3 Converter{% endblock %}
+
+{% block body %}
+<style>
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .animated-bg {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradientAnimation 15s ease infinite;
+    }
+</style>
+
+<div class="animated-bg min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4 py-8 max-w-3xl bg-white bg-opacity-90 rounded-lg shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">
+                    YouTube to MP3 Converter
+                </span>
+            </h1>
+            <p class="text-xl text-gray-600">Convert your favorite videos to audio in seconds</p>
+        </div>
+        
+        <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+            {{ form_start(form, {'attr': {'class': 'mb-4'}}) }}
+                <div class="flex flex-col md:flex-row gap-4">
+                    {{ form_widget(form.url, {'attr': {'class': 'flex-grow px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-lg', 'placeholder': 'Paste YouTube URL here'}}) }}
+                    {{ form_widget(form.submit, {'attr': {'class': 'bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-md transition duration-300 text-lg'}}) }}
+                </div>
+            {{ form_end(form) }}
+
+            {% if error %}
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+                    <p class="font-bold">Error</p>
+                    <p>{{ error }}</p>
+                </div>
+            {% endif %}
+
+            {% if conversion_status %}
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                    <p class="font-bold">Success</p>
+                    <p>{{ conversion_status }}</p>
+                </div>
+            {% endif %}
+
+            {% if download_link %}
+                <div class="text-center">
+                    <a href="{{ download_link }}" 
+                       class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-md transition duration-300 text-lg">
+                        Download MP3
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="bg-gray-100 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">How it works</h2>
+            <ol class="list-none space-y-4">
+                {% for step in ['Paste URL', 'Convert', 'Download'] %}
+                    <li class="flex items-center">
+                        <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-600 text-white rounded-full mr-3">
+                            {{ loop.index }}
+                        </span>
+                        <span class="text-gray-700">{{ step }}</span>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="text-center text-sm text-gray-600">
+            <p>By using this service, you agree to our <a href="#" class="text-red-600 hover:underline">Terms of Service</a> and <a href="#" class="text-red-600 hover:underline">Privacy Policy</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

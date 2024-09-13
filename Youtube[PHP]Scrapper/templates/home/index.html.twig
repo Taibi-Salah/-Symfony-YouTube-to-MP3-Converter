@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Convert YouTube to MP3</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.url) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if conversion_status %}
+        <div class="alert alert-success">{{ conversion_status }}</div>
+        <p>File Name: {{ mp3FileName }}</p>
+        <a href="{{ download_link }}" class="btn btn-primary">Download MP3</a>
+    {% endif %}
+{% endblock %}
