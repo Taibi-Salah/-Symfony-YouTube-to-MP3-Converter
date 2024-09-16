@@ -8,3 +8,10 @@ when@prod:
     framework:
         router:
             strict_requirements: null
+
+nelmio_api_doc:
+    documentation:
+        info:
+            title: 'API Documentation'
+            description: 'API documentation for the HomeController'
+            version: '1.0.0'
